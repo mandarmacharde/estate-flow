@@ -126,13 +126,15 @@ pipeline {
 
         stage('Verify') {
             steps {
-                sh '''
-                echo "🌐 Checking EC2 backend..."
-                curl -f http://${EC2_IP}/api/health
+                withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
+                    sh '''
+                    echo "🌐 Checking EC2 backend..."
+                    curl -f http://${EC2_IP}/api/health
 
-                echo "☸️ Checking Kubernetes..."
-                kubectl get pods -n estate
-                '''
+                    echo "☸️ Checking Kubernetes..."
+                    kubectl get pods -n estate
+                    '''
+                }
             }
         }
     }
