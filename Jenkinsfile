@@ -27,14 +27,16 @@ pipeline {
                 stage('Backend') {
                     steps {
                         sh '''
-                        docker build --platform linux/amd64 -t ${IMAGE_PREFIX}-backend:${BUILD_VERSION} ./backend
+                        docker build -t ${IMAGE_PREFIX}-backend:${BUILD_VERSION} ./backend
+                        docker build --platform linux/amd64 -t ${IMAGE_PREFIX}-backend:${BUILD_VERSION}-amd64 ./backend
                         '''
                     }
                 }
                 stage('Frontend') {
                     steps {
                         sh '''
-                        docker build --platform linux/amd64 -t ${IMAGE_PREFIX}-frontend:${BUILD_VERSION} ./frontend
+                        docker build -t ${IMAGE_PREFIX}-frontend:${BUILD_VERSION} ./frontend
+                        docker build --platform linux/amd64 -t ${IMAGE_PREFIX}-frontend:${BUILD_VERSION}-amd64 ./frontend
                         '''
                     }
                 }
@@ -53,6 +55,8 @@ pipeline {
 
                     docker push ${IMAGE_PREFIX}-backend:${BUILD_VERSION}
                     docker push ${IMAGE_PREFIX}-frontend:${BUILD_VERSION}
+                    docker push ${IMAGE_PREFIX}-backend:${BUILD_VERSION}-amd64
+                    docker push ${IMAGE_PREFIX}-frontend:${BUILD_VERSION}-amd64
 
                     docker logout
                     '''
@@ -74,8 +78,8 @@ pipeline {
 
                                 echo '🚀 Deploying to EC2...'
 
-                                docker pull ${IMAGE_PREFIX}-backend:${BUILD_VERSION}
-                                docker pull ${IMAGE_PREFIX}-frontend:${BUILD_VERSION}
+                                docker pull ${IMAGE_PREFIX}-backend:${BUILD_VERSION}-amd64
+                                docker pull ${IMAGE_PREFIX}-frontend:${BUILD_VERSION}-amd64
 
                                 docker network create estate-net || true
 
@@ -90,13 +94,13 @@ pipeline {
                                   -e DB_USER=estate_user \
                                   -e DB_PASSWORD=estate_password \
                                   -e DB_NAME=estateflow \
-                                  ${IMAGE_PREFIX}-backend:${BUILD_VERSION}
+                                  ${IMAGE_PREFIX}-backend:${BUILD_VERSION}-amd64
 
                                 docker run -d \
                                   --name frontend \
                                   --network estate-net \
                                   -p 80:8080 \
-                                  ${IMAGE_PREFIX}-frontend:${BUILD_VERSION}
+                                  ${IMAGE_PREFIX}-frontend:${BUILD_VERSION}-amd64
 
                                 echo '✅ EC2 Deploy Done'
                             "
