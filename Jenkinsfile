@@ -27,14 +27,14 @@ pipeline {
                 stage('Backend') {
                     steps {
                         sh '''
-                        docker build -t ${IMAGE_PREFIX}-backend:${BUILD_VERSION} ./backend
+                        docker build --platform linux/amd64 -t ${IMAGE_PREFIX}-backend:${BUILD_VERSION} ./backend
                         '''
                     }
                 }
                 stage('Frontend') {
                     steps {
                         sh '''
-                        docker build -t ${IMAGE_PREFIX}-frontend:${BUILD_VERSION} ./frontend
+                        docker build --platform linux/amd64 -t ${IMAGE_PREFIX}-frontend:${BUILD_VERSION} ./frontend
                         '''
                     }
                 }
