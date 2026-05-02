@@ -28,4 +28,4 @@ EXPOSE 8080
 HEALTHCHECK CMD curl -f http://localhost:8080/_health || exit 1
 
 # Start nginx with env substitution
-CMD ["sh", "-c", "envsubst '$BACKEND_HOST' < /etc/nginx/templates/default.conf.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"]
+CMD ["sh", "-c", "envsubst '$BACKEND_HOST' < /etc/nginx/templates/default.conf.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off; pid /tmp/nginx.pid;'"]
