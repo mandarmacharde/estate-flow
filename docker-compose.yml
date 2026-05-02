@@ -50,7 +50,7 @@ services:
     build: ./frontend
     restart: unless-stopped
     ports:
-      - "${FRONTEND_PORT:-8080}:80"
+      - "${FRONTEND_PORT:-8080}:8080"
     depends_on:
       backend:
         condition: service_healthy
@@ -59,7 +59,7 @@ services:
     networks:
       - estate_network
     healthcheck:
-      test: ["CMD-SHELL", "wget --spider --timeout=5 --tries=1 http://localhost:80/ >/dev/null 2>&1 || curl -fs http://localhost:80/ >/dev/null 2>&1 || exit 1"]
+      test: ["CMD-SHELL", "wget --spider --timeout=5 --tries=1 http://localhost:8080/ >/dev/null 2>&1 || curl -fs http://localhost:8080/ >/dev/null 2>&1 || exit 1"]
       interval: 10s
       timeout: 5s
       retries: 3
