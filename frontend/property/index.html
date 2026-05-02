@@ -164,7 +164,7 @@ location.search
 
 let res=
 await fetch(
-"http://localhost:5000/api/properties/"+id
+"/api/properties/"+id
 );
 
 p=await res.json();
@@ -217,7 +217,7 @@ show();
 async function bookmark(){
 
 await fetch(
-"http://localhost:5000/api/bookmark",
+"/api/bookmark",
 {
 method:"POST",
 headers:{
@@ -237,7 +237,7 @@ toastMsg("Bookmarked");
 async function contactOwner(){
 
 await fetch(
-"http://localhost:5000/api/contact",
+"/api/contact",
 {
 method:"POST",
 headers:{
@@ -257,7 +257,7 @@ toastMsg("Contact request sent");
 async function buy(){
 
 await fetch(
-"http://localhost:5000/api/purchase",
+"/api/purchase",
 {
 method:"POST",
 headers:{

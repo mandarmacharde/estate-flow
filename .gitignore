@@ -1,0 +1,57 @@
+# Node.js
+**/node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Build output
+dist/
+build/
+coverage/
+.nyc_output/
+
+# Environment
+.env
+.env.*
+
+# Docker
+docker-compose.override.yml
+.docker/
+**/Dockerfile.*
+
+# IDEs / editors
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+*.swp
+*.swo
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+
+# Temporary files
+*.tmp
+*.temp
+~*
+
+# Generated frontend artifacts
+frontend/dist/
+frontend/build/
+frontend/.cache/
+
+# Backend local runtime
+backend/.env
+backend/node_modules/
+
+# Ignore shell history
+*.history

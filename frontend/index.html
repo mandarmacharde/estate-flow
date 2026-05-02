@@ -208,7 +208,7 @@ return "₹"+(v/10000000).toFixed(2)+" Cr";
 async function fetchProperties(){
 
 let res=await fetch(
-"http://localhost:5000/api/properties"
+"/api/properties"
 );
 
 properties=await res.json();
@@ -220,7 +220,7 @@ render(properties);
 async function bookmark(id,btn){
 
 await fetch(
-"http://localhost:5000/api/bookmark",
+"/api/bookmark",
 {
 method:"POST",
 headers:{

@@ -14,17 +14,27 @@ let db;
 async function connectDB(){
 
 db=await mysql.createPool({
-host:process.env.DB_HOST,
-user:process.env.DB_USER,
-password:process.env.DB_PASSWORD,
-database:process.env.DB_NAME
+host:process.env.DB_HOST||"localhost",
+port:process.env.DB_PORT||3306,
+user:process.env.DB_USER||"estate_user",
+password:process.env.DB_PASSWORD||"estate_password",
+database:process.env.DB_NAME||"estateflow"
 });
 
-console.log("MySQL Connected");
+console.log("✅ MySQL Connected");
 
 }
 
-connectDB();
+async function connectWithRetry() {
+  try {
+    await connectDB();
+  } catch (err) {
+    console.error("⏳ DB not ready, retrying in 5 seconds...");
+    setTimeout(connectWithRetry, 5000);
+  }
+}
+
+connectWithRetry();
 
 
 
@@ -34,6 +44,18 @@ const [rows]=await db.query(
 );
 
 res.json(rows);
+});
+
+
+// 🏥 Health Check Endpoint
+app.get("/api/health",async(req,res)=>{
+try{
+const connection=await db.getConnection();
+connection.release();
+res.json({status:"healthy",timestamp:new Date().toISOString()});
+}catch(err){
+res.status(503).json({status:"unhealthy",error:err.message});
+}
 });
 
 
@@ -165,6 +187,6 @@ purchased:purchased[0].count
 
 
 
-app.listen(process.env.PORT,()=>{
-console.log("Server Running");
+app.listen(process.env.PORT||5000,()=>{
+console.log(`✅ Server Running on port ${process.env.PORT||5000}`);
 });

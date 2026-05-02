@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-initdb
+  namespace: estate
+data:
+  init.sql: |
+    CREATE DATABASE IF NOT EXISTS estateflow;
+    USE estateflow;
+    CREATE TABLE users(
+      id INT PRIMARY KEY AUTO_INCREMENT,
+      name VARCHAR(100),
+      email VARCHAR(100)
+    );
+    CREATE TABLE properties(
+      id INT PRIMARY KEY,
+      name VARCHAR(100),
+      price BIGINT,
+      city VARCHAR(100),
+      category VARCHAR(50),
+      beds INT,
+      baths INT,
+      area INT,
+      image VARCHAR(255)
+    );
