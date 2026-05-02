@@ -1,249 +1,279 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>EstateFlow</title>
 
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
-body{background:#f5f8fd}
-.navbar{
-height:70px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:0 50px;
-background:white;
-box-shadow:0 4px 20px rgba(0,0,0,.05)
-}
-.logo{
-font-size:30px;
-font-weight:800;
-color:#2563eb
-}
-.profile-btn{
-background:#2563eb;
-padding:12px 18px;
-border-radius:14px;
-color:white
-}
-.hero{
-padding:40px 50px
-}
-.hero h1{
-font-size:48px;
-margin-bottom:20px
-}
-.search-row{
-display:flex;
-gap:20px;
-flex-wrap:wrap
-}
-input,select{
-padding:16px;
-border:none;
-border-radius:14px;
-background:white;
-box-shadow:0 4px 14px rgba(0,0,0,.05)
-}
-.layout{
-display:grid;
-grid-template-columns:280px 1fr;
-gap:30px;
-padding:20px 50px 70px
-}
-.sidebar{
-background:white;
-padding:25px;
-border-radius:25px
-}
-.properties-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
-gap:25px
-}
-.card{
-background:white;
-border-radius:24px;
-overflow:hidden;
-box-shadow:0 8px 25px rgba(0,0,0,.05)
-}
-.card img{
-width:100%;
-height:240px;
-object-fit:cover
-}
-.card-body{
-padding:22px
-}
-.price{
-font-size:26px;
-font-weight:800;
-color:#2563eb
-}
-.title{
-font-size:22px;
-margin:10px 0
-}
-.badge{
-display:inline-block;
-padding:8px 12px;
-background:#eef4ff;
-border-radius:20px;
-margin-bottom:15px
-}
-.meta{
-display:flex;
-gap:12px;
-flex-wrap:wrap;
-margin-bottom:18px;
-color:#64748b
-}
-.btn-row{
-display:flex;
-gap:12px
-}
-.btn{
-flex:1;
-padding:14px;
-border:none;
-border-radius:12px;
-font-weight:700;
-cursor:pointer
-}
-.primary{
-background:#2563eb;
-color:white
-}
-.secondary{
-background:#eef2f7
-}
-.saved{
-background:#dcfce7
-}
-.toast{
-position:fixed;
-right:30px;
-bottom:30px;
-background:#111827;
-color:white;
-padding:14px 20px;
-border-radius:14px;
-opacity:0;
-transition:.3s
-}
-.toast.show{opacity:1}
-</style>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>EstatesFlow</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial
+        }
+
+        body {
+            background: #f5f8fd
+        }
+
+        .navbar {
+            height: 70px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 50px;
+            background: white;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, .05)
+        }
+
+        .logo {
+            font-size: 30px;
+            font-weight: 800;
+            color: #2563eb
+        }
+
+        .profile-btn {
+            background: #2563eb;
+            padding: 12px 18px;
+            border-radius: 14px;
+            color: white
+        }
+
+        .hero {
+            padding: 40px 50px
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px
+        }
+
+        .search-row {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap
+        }
+
+        input,
+        select {
+            padding: 16px;
+            border: none;
+            border-radius: 14px;
+            background: white;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, .05)
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 30px;
+            padding: 20px 50px 70px
+        }
+
+        .sidebar {
+            background: white;
+            padding: 25px;
+            border-radius: 25px
+        }
+
+        .properties-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 25px
+        }
+
+        .card {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, .05)
+        }
+
+        .card img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover
+        }
+
+        .card-body {
+            padding: 22px
+        }
+
+        .price {
+            font-size: 26px;
+            font-weight: 800;
+            color: #2563eb
+        }
+
+        .title {
+            font-size: 22px;
+            margin: 10px 0
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 8px 12px;
+            background: #eef4ff;
+            border-radius: 20px;
+            margin-bottom: 15px
+        }
+
+        .meta {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 18px;
+            color: #64748b
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 12px
+        }
+
+        .btn {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer
+        }
+
+        .primary {
+            background: #2563eb;
+            color: white
+        }
+
+        .secondary {
+            background: #eef2f7
+        }
+
+        .saved {
+            background: #dcfce7
+        }
+
+        .toast {
+            position: fixed;
+            right: 30px;
+            bottom: 30px;
+            background: #111827;
+            color: white;
+            padding: 14px 20px;
+            border-radius: 14px;
+            opacity: 0;
+            transition: .3s
+        }
+
+        .toast.show {
+            opacity: 1
+        }
+    </style>
 </head>
+
 <body>
 
-<nav class="navbar">
-<div class="logo">EstateFlow</div>
+    <nav class="navbar">
+        <div class="logo">EstateFlow</div>
 
-<a href="profile/index.html" class="profile-btn">
-Profile
-</a>
-</nav>
+        <a href="profile/index.html" class="profile-btn">
+            Profile
+        </a>
+    </nav>
 
-<section class="hero">
-<h1>Find Your Dream Property</h1>
+    <section class="hero">
+        <h1>Find Your Dream Property</h1>
 
-<div class="search-row">
-<input id="searchInput" placeholder="Search property">
+        <div class="search-row">
+            <input id="searchInput" placeholder="Search property">
 
-<select id="sortSelect">
-<option value="">Sort</option>
-<option value="low">Low-High</option>
-<option value="high">High-Low</option>
-</select>
-</div>
-</section>
-
-
-<div class="layout">
-
-<aside class="sidebar">
-<h3>Filters</h3>
-
-<p>Max Price</p>
-<input
-type="range"
-id="priceRange"
-min="5000000"
-max="40000000"
-step="1000000"
-value="40000000"
-/>
-
-<p id="priceValue">4 Cr</p>
-</aside>
-
-<main>
-<div id="propertiesGrid" class="properties-grid"></div>
-</main>
-
-</div>
-
-<div class="toast" id="toast"></div>
+            <select id="sortSelect">
+                <option value="">Sort</option>
+                <option value="low">Low-High</option>
+                <option value="high">High-Low</option>
+            </select>
+        </div>
+    </section>
 
 
-<script>
+    <div class="layout">
 
-let properties=[];
+        <aside class="sidebar">
+            <h3>Filters</h3>
 
-function toastMsg(msg){
-toast.textContent=msg;
-toast.classList.add("show");
+            <p>Max Price</p>
+            <input type="range" id="priceRange" min="5000000" max="40000000" step="1000000" value="40000000" />
 
-setTimeout(()=>{
-toast.classList.remove("show")
-},2500);
-}
+            <p id="priceValue">4 Cr</p>
+        </aside>
 
-function formatPrice(v){
-return "₹"+(v/10000000).toFixed(2)+" Cr";
-}
+        <main>
+            <div id="propertiesGrid" class="properties-grid"></div>
+        </main>
 
-async function fetchProperties(){
+    </div>
 
-let res=await fetch(
-"/api/properties"
-);
+    <div class="toast" id="toast"></div>
 
-properties=await res.json();
 
-render(properties);
+    <script>
 
-}
+        let properties = [];
 
-async function bookmark(id,btn){
+        function toastMsg(msg) {
+            toast.textContent = msg;
+            toast.classList.add("show");
 
-await fetch(
-"/api/bookmark",
-{
-method:"POST",
-headers:{
-"Content-Type":"application/json"
-},
-body:JSON.stringify({
-userId:1,
-propertyId:id
-})
-}
-);
+            setTimeout(() => {
+                toast.classList.remove("show")
+            }, 2500);
+        }
 
-btn.textContent="Saved ✓";
-btn.classList.add("saved");
+        function formatPrice(v) {
+            return "₹" + (v / 10000000).toFixed(2) + " Cr";
+        }
 
-toastMsg("Property bookmarked");
+        async function fetchProperties() {
 
-}
+            let res = await fetch(
+                "/api/properties"
+            );
 
-function render(list){
+            properties = await res.json();
 
-propertiesGrid.innerHTML=
-list.map(p=>`
+            render(properties);
+
+        }
+
+        async function bookmark(id, btn) {
+
+            await fetch(
+                "/api/bookmark",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        userId: 1,
+                        propertyId: id
+                    })
+                }
+            );
+
+            btn.textContent = "Saved ✓";
+            btn.classList.add("saved");
+
+            toastMsg("Property bookmarked");
+
+        }
+
+        function render(list) {
+
+            propertiesGrid.innerHTML =
+                list.map(p => `
 <div class="card">
 
 <img src="${p.image}">
@@ -288,57 +318,58 @@ Bookmark
 </div>
 `).join("");
 
-}
+        }
 
 
-function applyFilters(){
+        function applyFilters() {
 
-let filtered=[...properties];
+            let filtered = [...properties];
 
-let q=
-searchInput.value.toLowerCase();
+            let q =
+                searchInput.value.toLowerCase();
 
-if(q){
-filtered=
-filtered.filter(x=>
-x.name.toLowerCase().includes(q)||
-x.city.toLowerCase().includes(q)
-);
-}
+            if (q) {
+                filtered =
+                    filtered.filter(x =>
+                        x.name.toLowerCase().includes(q) ||
+                        x.city.toLowerCase().includes(q)
+                    );
+            }
 
-let max=+priceRange.value;
+            let max = +priceRange.value;
 
-filtered=
-filtered.filter(
-x=>x.price<=max
-);
+            filtered =
+                filtered.filter(
+                    x => x.price <= max
+                );
 
-if(sortSelect.value=="low")
-filtered.sort((a,b)=>a.price-b.price);
+            if (sortSelect.value == "low")
+                filtered.sort((a, b) => a.price - b.price);
 
-if(sortSelect.value=="high")
-filtered.sort((a,b)=>b.price-a.price);
+            if (sortSelect.value == "high")
+                filtered.sort((a, b) => b.price - a.price);
 
-render(filtered);
+            render(filtered);
 
-}
+        }
 
-searchInput.oninput=applyFilters;
+        searchInput.oninput = applyFilters;
 
-sortSelect.onchange=applyFilters;
+        sortSelect.onchange = applyFilters;
 
-priceRange.oninput=function(){
+        priceRange.oninput = function () {
 
-priceValue.innerText=
-(this.value/10000000).toFixed(1)+" Cr";
+            priceValue.innerText =
+                (this.value / 10000000).toFixed(1) + " Cr";
 
-applyFilters();
+            applyFilters();
 
-}
+        }
 
-fetchProperties();
+        fetchProperties();
 
-</script>
+    </script>
 
 </body>
+
 </html>
