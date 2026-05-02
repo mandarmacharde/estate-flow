@@ -78,10 +78,12 @@ pipeline {
 
         stage('Verify') {
             steps {
-                sh '''
-                kubectl get pods -n estate
-                kubectl get svc -n estate
-                '''
+                withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
+                    sh '''
+                    kubectl get pods -n estate
+                    kubectl get svc -n estate
+                    '''
+                }
             }
         }
     }
