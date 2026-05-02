@@ -17,7 +17,8 @@ ENV BACKEND_HOST=backend
 
 # Create necessary directories and fix permissions for non-root execution
 RUN mkdir -p /var/cache/nginx /var/run /var/log/nginx && \
-    chown -R nginx:nginx /usr/share/nginx/html /etc/nginx/conf.d /var/cache/nginx /var/run /var/log/nginx /etc/nginx/templates
+    sed -i 's|pid        /run/nginx.pid;|pid        /tmp/nginx.pid;|' /etc/nginx/nginx.conf && \
+    chown -R nginx:nginx /usr/share/nginx/html /etc/nginx/conf.d /var/cache/nginx /var/run /var/log/nginx /etc/nginx/templates /etc/nginx/nginx.conf
 
 USER nginx
 
@@ -28,4 +29,4 @@ EXPOSE 8080
 HEALTHCHECK CMD curl -f http://localhost:8080/_health || exit 1
 
 # Start nginx with env substitution
-CMD ["sh", "-c", "envsubst '$BACKEND_HOST' < /etc/nginx/templates/default.conf.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off; pid /tmp/nginx.pid;'"]
+CMD ["sh", "-c", "envsubst '$BACKEND_HOST' < /etc/nginx/templates/default.conf.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"]
